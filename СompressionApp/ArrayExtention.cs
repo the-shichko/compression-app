@@ -11,7 +11,8 @@ namespace СompressionApp
             var arrayString = string.Empty;
             foreach (var item in sender)
             {
-                arrayString += $"{item}, ";
+                if (double.Parse(item.ToString() ?? "0") != 0)
+                    arrayString += $"{item}, ";
             }
 
             arrayString = arrayString.Substring(0, arrayString.Length - 2);
