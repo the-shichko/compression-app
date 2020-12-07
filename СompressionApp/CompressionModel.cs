@@ -18,7 +18,7 @@ namespace СompressionApp
         private static readonly double[] ResultY = new double[Count];
         private static readonly double[] UnclenchingY = new double[Count];
         private static readonly double[] UnclenchingRoundY = new double[Count];
-
+        private static readonly double[,] ArrayH = new double[Count, Count];
 
         public static void Start()
         {
@@ -36,6 +36,9 @@ namespace СompressionApp
             
             Console.WriteLine("Result Y:");
             ResultY.ConsolePrint();
+            
+            Console.WriteLine("Array H:");
+            ArrayH.ConsolePrint();
 
             UnclenchingArray();
 
@@ -87,7 +90,9 @@ namespace СompressionApp
             double sum = 0;
             for (var n = 0; n < Count; n++)
             {
-                sum += (type == "x" ? ArrayX[n] : ArrayY[n]) * Cas(v, n);
+                var cas = Cas(v, n);
+                sum += (type == "x" ? ArrayX[n] : ArrayY[n]) * cas;
+                ArrayH[v, n] = Math.Round(cas, 2);
             }
 
             return Math.Round(sum, 3);
@@ -140,7 +145,7 @@ namespace СompressionApp
             var q = 0.0;
             for (var i = 0; i < Count; i++)
             {
-                q += Math.Pow(UnclenchingX[i] - ArrayX[i], 2) + Math.Pow(UnclenchingY[i] - ArrayY[i], 2);
+                q += Math.Pow(UnclenchingRoundX[i] - ArrayX[i], 2) + Math.Pow(UnclenchingRoundY[i] - ArrayY[i], 2);
             }
 
             return Math.Sqrt(q / (2 * Count));
